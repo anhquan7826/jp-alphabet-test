@@ -46,9 +46,13 @@ bool Texture::loadFromFile(SDL_Renderer* gRenderer, string path, int isKeyColor)
     }
     return true;
 }
-void Texture::render(SDL_Renderer* gRenderer) {
+void Texture::render(SDL_Renderer* gRenderer, SDL_Rect* clip) {
     SDL_Rect renderPos = {x, y, w, h};
-    SDL_RenderCopy(gRenderer, texture, NULL, &renderPos);
+    if (clip != NULL) {
+        renderPos.w = clip->w;
+        renderPos.h = clip->h;
+    }
+    SDL_RenderCopy(gRenderer, texture, clip, &renderPos);
 }
 bool Texture::isTextureNULL() {
     return (texture != NULL);

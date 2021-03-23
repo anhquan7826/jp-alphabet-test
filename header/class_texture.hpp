@@ -21,7 +21,7 @@ class Texture {
         void setPosition(int _x, int _y);
         void setDimension(int _w, int _h);
         bool loadFromFile(SDL_Renderer* gRenderer, string path, int isKeyColor);
-        void render(SDL_Renderer* gRenderer);
+        void render(SDL_Renderer* gRenderer, SDL_Rect* clip);
         bool isTextureNULL();
 };
 
