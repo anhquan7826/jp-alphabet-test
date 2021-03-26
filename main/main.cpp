@@ -232,6 +232,9 @@ int main(int argc, char* argv[]) {
 
                     if (answer[answer_correct].getState() == BUTTON_MOUSE_UP) {
                         random_numbers(46, answer_correct, answer_wrong[0], answer_wrong[1], answer_wrong[2]);
+                        for (int i=0; i<46; i++) {
+                            answer[i].setState(BUTTON_MOUSE_OUT);
+                        } 
                     }
 
                     SDL_RenderPresent(gRenderer);
