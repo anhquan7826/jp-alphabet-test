@@ -19,6 +19,7 @@ class StaticTextButton {
         void handleEvent(SDL_Event* e);
         void render(SDL_Renderer* gRenderer);
         ButtonState getState();
+        void setState(ButtonState _state);
 };
 
 #endif

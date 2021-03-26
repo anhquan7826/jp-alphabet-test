@@ -52,6 +52,10 @@ ButtonState StaticTextButton::getState() {
     return state;
 }
 
+void StaticTextButton::setState(ButtonState _state) {
+    state = _state;
+}
+
 void StaticTextButton::render(SDL_Renderer* gRenderer) {
     switch (state) {
         case BUTTON_MOUSE_OUT:
