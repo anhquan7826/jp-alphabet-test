@@ -35,6 +35,10 @@ void Timer::unpause() {
         tick_pause = 0;
     }
 }
+void Timer::reset() {
+    stop();
+    start();
+}
 Uint32 Timer::getTicks() {
     Uint32 tick = 0;
     if (isStarted) {

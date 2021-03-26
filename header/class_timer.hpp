@@ -17,6 +17,7 @@ class Timer {
         void stop();
         void pause();
         void unpause();
+        void reset();
         Uint32 getTicks();
         int getState();
 };
