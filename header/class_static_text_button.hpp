@@ -10,8 +10,6 @@ using namespace std;
 class StaticTextButton {
     private:
         SDL_Rect rect;
-      /*  SDL_Texture* text;
-        SDL_Rect text_pos; */
         ButtonState state; 
         Text text;
     public:
