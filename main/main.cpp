@@ -42,6 +42,8 @@ enum Romaji {
                     n
 };
 
+Timer timeCount;
+
 ifstream file;
 string romaji[46];
 
@@ -53,6 +55,10 @@ StaticTextButton button_katakana;
 StaticTextButton button_quit;
 
 StaticTextButton answer[46];
+
+int array_x[4] = {30, 165, 30, 165};
+int array_y[4] = {240, 240, 320, 320};
+int array_index[4] = {0, 1, 2, 3};
 
 bool Init() {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -144,6 +150,7 @@ void close() {
 
 int main(int argc, char* argv[]) {
     srand(time(0));
+    timeCount.start();
     if (!Init()) {
         return false;
     } else if (!loadMedia()) {
@@ -160,6 +167,7 @@ int main(int argc, char* argv[]) {
         int answer_correct;
         int answer_wrong[3];
         random_numbers(46, answer_correct, answer_wrong[0], answer_wrong[1], answer_wrong[2]);
+        random_arrays(array_index, 4);
 
         while (!quit) {
             int real_answer = rand()%46+1;
@@ -217,10 +225,10 @@ int main(int argc, char* argv[]) {
                     SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
                     SDL_RenderClear(gRenderer);
 
-                    answer[answer_correct].setDimension(30, 240, 105, 50);
-                    answer[answer_wrong[0]].setDimension(30, 320, 105, 50);
-                    answer[answer_wrong[1]].setDimension(165, 240, 105, 50);
-                    answer[answer_wrong[2]].setDimension(165, 320, 105, 50);
+                    answer[answer_correct].setDimension(array_x[array_index[0]], array_y[array_index[0]], 105, 50);
+                    answer[answer_wrong[0]].setDimension(array_x[array_index[1]], array_y[array_index[1]], 105, 50);
+                    answer[answer_wrong[1]].setDimension(array_x[array_index[2]], array_y[array_index[2]], 105, 50);
+                    answer[answer_wrong[2]].setDimension(array_x[array_index[3]], array_y[array_index[3]], 105, 50);
 
                     answer[answer_correct].render(gRenderer);
                     answer[answer_wrong[0]].render(gRenderer);
@@ -234,7 +242,8 @@ int main(int argc, char* argv[]) {
                         random_numbers(46, answer_correct, answer_wrong[0], answer_wrong[1], answer_wrong[2]);
                         for (int i=0; i<46; i++) {
                             answer[i].setState(BUTTON_MOUSE_OUT);
-                        } 
+                        }
+                        random_arrays(array_index, 4);
                     }
 
                     SDL_RenderPresent(gRenderer);
