@@ -28,19 +28,6 @@ enum Option {
     HIRAGANA,
     KATAKANA
 };
-enum Romaji {
-    a,      i,      u,      e,      o, 
-    ka,     ki,     ku,     ke,     ko, 
-    sa,     shi,    su,     se,     so, 
-    ta,     chi,    tsu,    te,     to, 
-    na,     ni,     nu,     ne,     no,
-    ha,     hi,     fu,     he,     ho,
-    ma,     mi,     mu,     me,     mo,
-    ra,     ri,     ru,     re,     ro,
-    ya,             yu,             yo,
-    wa,                             wo,
-                    n
-};
 
 Timer timeCount;
 
