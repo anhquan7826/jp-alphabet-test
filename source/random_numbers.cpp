@@ -18,3 +18,10 @@ void random_numbers(const int range, int &a, int &b, int &c, int &d) {
     c = array[2];
     d = array[3];
 }
+
+void random_arrays(int array[], int n) {
+    for (int i=n-1; i>0; i--) {
+        int a = rand()%i;
+        swap(array[i], array[a]);
+    }
+}
