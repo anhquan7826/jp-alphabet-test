@@ -1,6 +1,8 @@
+#define SDL_MAIN_HANDLED
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
 
 #include <SDL.h>
 #include <SDL_image.h>
