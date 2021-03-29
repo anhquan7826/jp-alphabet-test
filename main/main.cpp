@@ -150,11 +150,15 @@ int main(int argc, char* argv[]) {
         int letter = 0;
         int speed = 10;
         int i_speed = 0;
+        int startTick = 0;
         
         int answer_correct;
         int answer_wrong[3];
         random_numbers(46, answer_correct, answer_wrong[0], answer_wrong[1], answer_wrong[2]);
         random_arrays(array_index, 4);
+
+        bool userCorrect = false;
+        bool userIncorrect = false;
 
         while (!quit) {
             int real_answer = rand()%46+1;
@@ -208,6 +212,7 @@ int main(int argc, char* argv[]) {
                     break;
                 }
                 case HIRAGANA: case KATAKANA: {
+
                     bool ifAnswerWrong = false;
                     SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
                     SDL_RenderClear(gRenderer);
@@ -225,12 +230,50 @@ int main(int argc, char* argv[]) {
                     japanese[MODE].setPosition(120, 80);
                     japanese[MODE].render(gRenderer, &char_clip[answer_correct]);
 
+                    for (int i=0; i<3; i++) {
+                        if (answer[answer_wrong[i]].getState() == BUTTON_MOUSE_UP) {
+                            userIncorrect = true;
+                            userCorrect = false;
+                            startTick = SDL_GetTicks();
+                            for (int i=0; i<46; i++) {
+                                answer[i].setState(BUTTON_MOUSE_OUT);
+                            }
+                        }
+                    }
+
                     if (answer[answer_correct].getState() == BUTTON_MOUSE_UP) {
                         random_numbers(46, answer_correct, answer_wrong[0], answer_wrong[1], answer_wrong[2]);
                         for (int i=0; i<46; i++) {
                             answer[i].setState(BUTTON_MOUSE_OUT);
                         }
                         random_arrays(array_index, 4);
+                        startTick = SDL_GetTicks();
+                        userCorrect = true;
+                        userIncorrect = false;
+                        for (int i=0; i<46; i++) {
+                            answer[i].setState(BUTTON_MOUSE_OUT);
+                        }
+                    }
+
+                    if (userCorrect && !userIncorrect) {
+                        if (SDL_GetTicks()-startTick <= 1000) {
+                            SDL_Rect test = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+                            SDL_SetRenderDrawColor(gRenderer, 0, 255, 0, 255);
+                            SDL_RenderDrawRect(gRenderer, &test);
+                        } else {
+                            userCorrect = false;
+                            userIncorrect = false;
+                        }
+                    }
+                    if (!userCorrect && userIncorrect) {
+                        if (SDL_GetTicks()-startTick <= 1000) {
+                            SDL_Rect test = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
+                            SDL_SetRenderDrawColor(gRenderer, 255, 0, 0, 255);
+                            SDL_RenderDrawRect(gRenderer, &test);
+                        } else {
+                            userCorrect = false;
+                            userIncorrect = false;
+                        }
                     }
 
                     SDL_RenderPresent(gRenderer);
